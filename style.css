@@ -1,0 +1,442 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+
+:root {
+  --color-succes: #00bf8e;
+  --color-warning: #f7c94b;
+
+  --container-width-lg: 80%;
+  --container-width-md: 90%;
+  --container-width-sm: 94%;
+
+  --transition: all 400ms ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  line-height: 1.7;
+  color: white;
+  background: rgb(59, 19, 59);
+}
+
+/* SIDEBAR CARRINHO */
+
+.sidebar {
+  position: fixed;
+  top: 4rem; /* Altura da navbar */
+  right: -300px;
+  width: 300px;
+  height: calc(100% - 4rem); /* Desconta a altura da navbar */
+  background-color: rgb(141, 48, 141);
+  transition: right 0.3s ease-in-out;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.sidebar.show {
+  right: 0;
+}
+
+/* NAVBAR */
+
+nav {
+  background-color: purple;
+  width: 100vw;
+  height: 4rem;
+  position: fixed;
+  top: 0;
+  z-index: 11;
+}
+
+nav h4,
+a {
+  font-size: 1.5rem;
+  color: white;
+}
+
+/* change navbar styles on scroll using js */
+.window-scroll {
+  background: purple;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.6);
+}
+
+.nav_container {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav button {
+  display: none;
+}
+
+.nav_menu {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.nav_menu a {
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.nav_menu a:hover {
+  color: red;
+}
+
+/* ITEMS DO CARRINHO */
+
+ul#cartItems {
+  padding: 0;
+  list-style-type: none;
+}
+
+ul#cartItems li {
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.cart-item-info {
+  display: flex;
+  align-items: flex-start; /* Alinhar os itens no topo */
+  flex-grow: 1;
+}
+
+.cart-item-image {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.cart-item-name {
+  font-weight: bold;
+  flex-grow: 1;
+}
+
+.cart-item-quantity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Estilos para os botões de quantidade */
+
+.cart-item-quantity button {
+  background-color: transparent;
+  color: black;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 2px;
+  text-align: center;
+  width: 100%;
+}
+
+.cart-item-quantity button:hover {
+  background-color: #ccc;
+}
+
+.cart-item-quantity .quantity-btn {
+  display: flex;
+  flex-direction: column;
+}
+
+.remove-button {
+  margin-left: 30%;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  display: block;
+  margin-top: 45%;
+  position: absolute;
+  border-radius: 4px;
+}
+
+/* CURSOS */
+
+.container {
+  width: var(--container-width-lg);
+  margin: 0 auto;
+}
+
+section {
+  padding: 6rem 0;
+}
+
+section h2 {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.courses {
+  margin-top: 10rem;
+}
+
+.courses_container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  transition: var(--transition);
+}
+
+.course {
+  background: purple;
+  text-align: center;
+  border: 1px solid transparent;
+}
+
+.course:hover {
+  background: rgb(85, 6, 85);
+  border-color: black;
+}
+
+.course_info {
+  padding: 2rem;
+}
+
+.course_info p {
+  margin: 1.2rem 0 2rem;
+  font-size: 0.9rem;
+}
+
+img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* BOTAO */
+
+.btn {
+  display: inline-block;
+  padding: 1rem 1.2rem;
+  border: 1px solid transparent;
+  border-radius: 1.5rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.btn:hover {
+  background: transparent;
+  color: white;
+  border-color: white;
+}
+
+.btn-primary {
+  background: red;
+}
+
+/* MODAL */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.modal-content {
+  background-color: black;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid white;
+  width: 1000px;
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-info {
+  flex-grow: 1;
+}
+
+.product-info img {
+  width: 400px;
+  height: auto;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.product-details {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.product-details h2 {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.product-description {
+  margin: 0;
+  align-items: flex-start;
+  display: flex;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  border-radius: 0;
+}
+
+.buy-button,
+.close-button {
+  width: 120px;
+  margin-left: 10px;
+}
+
+.buy-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.close-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* =============== MEDIA QUERIES (TABLETS) ================= */
+
+@media screen and (max-width: 1024px) {
+  .container {
+    width: var(--container-width-md);
+  }
+
+  /* =================== NAVBAR =================== */
+
+  nav button {
+    display: inline-block;
+    background: transparent;
+    font-size: 1.8rem;
+    color: white;
+    cursor: pointer;
+  }
+
+  nav button#close-menu-btn {
+    display: none;
+  }
+
+  .nav_menu {
+    position: fixed;
+    top: 5rem;
+    right: 5%;
+    height: fit-content;
+    width: 18rem;
+    flex-direction: column;
+    gap: 0;
+    display: none;
+  }
+
+  .nav_menu li {
+    width: 100%;
+    height: 5.8rem;
+    animation: animateNavItems 400ms linear forwards;
+    transform-origin: top right;
+    opacity: 0;
+  }
+
+  .nav_menu li:nth-child(2) {
+    animation-delay: 200ms;
+  }
+
+  .nav_menu li:nth-child(3) {
+    animation-delay: 400ms;
+  }
+
+  .nav_menu li:nth-child(4) {
+    animation-delay: 600ms;
+  }
+
+  @keyframes animateNavItems {
+    0% {
+      transform: rotateZ(-90deg) rotateX(90deg) scale(0.1);
+    }
+    100% {
+      transform: rotateZ(0) rotateX(0) scale(1);
+      opacity: 1;
+    }
+  }
+
+  .nav_menu li a {
+    background: var(--color-primary);
+    box-shadow: -4rem 6rem 10rem rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+  }
+
+  .nav_menu li a:hover {
+    background: var(--color-bg2);
+    color: white;
+  }
+
+  /* ================ POPULAR COURSES ================ */
+
+  .courses {
+    margin-top: 0;
+  }
+
+  .courses_container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ======================== MEDIA QUERIES (PHONES) ====================== */
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: var(--container-width-sm);
+  }
+
+  /* ============== NAVBAR =============== */
+
+  .nav_menu {
+    right: 3%;
+  }
+
+  /* ================= POPULAR COURSES =============== */
+
+  .courses_container {
+    grid-template-columns: 1fr;
+  }
+}

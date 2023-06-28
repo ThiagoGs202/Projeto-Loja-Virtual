@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- ================== NAVBAR ==================-->
+
+    <nav>
+      <div class="container nav_container">
+        <a href="index.html"><h4>Home</h4></a>
+        <ul class="nav_menu">
+          <li><a href="#" onclick="toggleCart()">Carrinho</a></li>
+          <li><a href="#">Minha Conta</a></li>
+        </ul>
+        <button id="open-menu-btn"><i class="uil uil-bars"></i></button>
+        <button id="close-menu-btn"><i class="uil uil-multiply"></i></button>
+      </div>
+    </nav>
+
+    <div id="cartSidebar" class="sidebar">
+      <h2>Carrinho</h2>
+      <ul id="cartItems"></ul>
+      <p id="cartTotal"></p>
+    </div>
+
+    <!-- CURSOS -->
+    <section class="courses">
+      <section class="container courses_container">
+        <article class="course">
+          <div class="course_image">
+            <img src="images/course1.jpg" />
+          </div>
+          <div class="course_info">
+            <h4>NOME DO PRODUTO</h4>
+            <p>DESCRIÇÃO DO PRODUTO</p>
+            <p class="course_price">R$ 90,00</p>
+            <button onclick="openModal()" class="btn btn-primary">
+              SAIBA MAIS
+            </button>
+          </div>
+        </article>
+
+        <!-- MODAL -->
+
+        <div id="myModal" class="modal">
+          <div class="modal-content">
+            <div class="product-info">
+              <div class="product-details">
+                <h2>Nome do Produto</h2>
+                <div class="product-description">
+                  <img src="images/course1.jpg" />
+                  <p>Descrição do Produto</p>
+                </div>
+                <p class="modal-price">R$ 0,00</p>
+                <div class="buttons">
+                  <button
+                    class="buy-button btn btn-primary"
+                    onclick="addToCart()"
+                  >
+                    Comprar
+                  </button>
+                  <button
+                    class="close-button btn btn-primary"
+                    onclick="closeModal()"
+                  >
+                    Fechar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FIM MODAL -->
+      </section>
+    </section>
+
+    <script src="main.js"></script>
+
+    <script>
+      // Função para adicionar os itens ao carrinho
+      const cartItems = []; // Array para armazenar os itens do carrinho
+
+      function addToCart() {
+        const coursePriceElement = document.querySelector(".course_price");
+        const coursePriceText = coursePriceElement.textContent;
+        const productPrice = parseFloat(coursePriceText.replace("R$ ", ""));
+
+        // Adicionar item ao carrinho (exemplo: nome do produto, URL da imagem e preço)
+        const productName = "Nome do Produto";
+        const productImage = "images/course1.jpg";
+        cartItems.push({
+          name: productName,
+          image: productImage,
+          price: productPrice,
+          quantity: 1,
+        });
+
+        updateCart(); // Atualizar a exibição do carrinho
+        closeModal(); // Fechar a modal após adicionar o item ao carrinho
+      }
+
+      function increaseQuantity(index) {
+        cartItems[index].quantity++;
+        updateCart();
+      }
+
+      function decreaseQuantity(index) {
+        if (cartItems[index].quantity > 1) {
+          cartItems[index].quantity--;
+          updateCart();
+        }
+      }
+
+      function removeItem(index) {
+        cartItems.splice(index, 1);
+        updateCart();
+      }
+
+      function updateCart() {
+        const cartList = document.getElementById("cartItems");
+        const cartTotal = document.getElementById("cartTotal");
+
+        // Limpar a lista do carrinho
+
+        cartList.innerHTML = "";
+
+        // Variável para calcular o preço total
+
+        let total = 0;
+
+        // Adicionar cada item à lista do carrinho
+
+        cartItems.forEach((item, index) => {
+          const li = document.createElement("li");
+          li.classList.add("cart-item");
+
+          const itemInfo = document.createElement("div");
+          itemInfo.classList.add("cart-item-info");
+
+          // Criar imagem do item
+
+          const img = document.createElement("img");
+          img.src = item.image;
+          img.alt = item.name;
+          img.classList.add("cart-item-image");
+          itemInfo.appendChild(img);
+
+          // Criar nome do item
+
+          const name = document.createElement("span");
+          name.textContent = item.name;
+          name.classList.add("cart-item-name");
+          itemInfo.appendChild(name);
+
+          li.appendChild(itemInfo);
+
+          // Criar botões de quantidade
+
+          const quantityContainer = document.createElement("div");
+          quantityContainer.classList.add("cart-item-quantity");
+
+          const decreaseBtn = document.createElement("button");
+          decreaseBtn.textContent = "-";
+          decreaseBtn.classList.add("btn", "btn-quantity", "btn-decrease");
+          decreaseBtn.addEventListener("click", () => decreaseQuantity(index));
+          quantityContainer.appendChild(decreaseBtn);
+
+          const quantity = document.createElement("span");
+          quantity.textContent = item.quantity;
+          quantity.classList.add("cart-item-quantity-value");
+          quantityContainer.appendChild(quantity);
+
+          const increaseBtn = document.createElement("button");
+          increaseBtn.textContent = "+";
+          increaseBtn.classList.add("btn", "btn-quantity", "btn-increase");
+          increaseBtn.addEventListener("click", () => increaseQuantity(index));
+          quantityContainer.appendChild(increaseBtn);
+
+          li.appendChild(quantityContainer);
+
+          // Calcular o preço total do item
+
+          const itemTotal = item.price * item.quantity;
+          total += itemTotal;
+
+          // Criar botão de remover
+
+          const removeBtn = document.createElement("button");
+          removeBtn.textContent = "Remover";
+          removeBtn.classList.add("remove-button");
+          removeBtn.addEventListener("click", () => removeItem(index));
+          li.appendChild(removeBtn);
+
+          cartList.appendChild(li);
+        });
+
+        // Verificar se há itens no carrinho antes de exibir o valor total
+        if (cartItems.length > 0) {
+          // Exibir o valor total do carrinho
+          cartTotal.textContent = "Total: R$ " + total.toFixed(2);
+          // Exibir o elemento do valor total
+          cartTotal.style.display = "block";
+        } else {
+          // Ocultar o elemento do valor total quando não há itens no carrinho
+          cartTotal.style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>
