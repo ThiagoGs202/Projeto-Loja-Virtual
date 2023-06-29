@@ -19,6 +19,7 @@
   text-decoration: none;
   list-style: none;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 body {
@@ -31,7 +32,7 @@ body {
 /* SIDEBAR CARRINHO */
 
 .sidebar {
-  position: fixed;
+  position: absolute;
   top: 4rem; /* Altura da navbar */
   right: -300px;
   width: 300px;
@@ -40,59 +41,79 @@ body {
   transition: right 0.3s ease-in-out;
   overflow-y: auto;
   padding: 20px;
+  visibility: hidden;
 }
 
 .sidebar.show {
   right: 0;
+  visibility: visible;
 }
 
 /* NAVBAR */
 
-nav {
+header{
   background-color: purple;
-  width: 100vw;
-  height: 4rem;
-  position: fixed;
-  top: 0;
-  z-index: 11;
 }
 
-nav h4,
-a {
-  font-size: 1.5rem;
-  color: white;
-}
-
-/* change navbar styles on scroll using js */
-.window-scroll {
-  background: purple;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.6);
-}
-
-.nav_container {
-  height: 100%;
+.navbar{
+  min-height: 70px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
 }
 
-nav button {
-  display: none;
+.logo{
+  font-size: 2rem;
+  font-weight: bold;
+  margin-left: 20px;
 }
 
-.nav_menu {
+.nav-menu{
   display: flex;
   align-items: center;
-  gap: 4rem;
+  gap: 30px;
+  margin-right: 20px;
 }
 
-.nav_menu a {
-  font-size: 0.9rem;
+.nav-link{
   transition: var(--transition);
 }
 
-.nav_menu a:hover {
-  color: red;
+.nav-link:hover{
+  color: yellow;
+}
+
+li{
+  list-style: none;
+}
+
+a{
+  color: white;
+  text-decoration: none;
+}
+
+/* MENU HAMBURGUER */
+
+.hamburguer{
+  display: none;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.bar{
+  display: block;
+  width: 28px;
+  height: 3px;
+  border-radius: 2px;
+  margin: 5px auto;
+  background-color: white;
+  transform: var(--transition);
+}
+
+/* FUNÇÃO JS PARA BOTAR SOMBRA NA NAVBAR AO DESCER */
+
+.window-scroll {
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.6);
 }
 
 /* ITEMS DO CARRINHO */
@@ -185,10 +206,6 @@ section h2 {
   margin-bottom: 4rem;
 }
 
-.courses {
-  margin-top: 10rem;
-}
-
 .courses_container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -241,6 +258,7 @@ img {
 
 .btn-primary {
   background: red;
+  color: white;
 }
 
 /* MODAL */
@@ -263,7 +281,7 @@ img {
   padding: 20px;
   border: 1px solid white;
   width: 1000px;
-  height: 420px;
+  height: 440px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -334,109 +352,80 @@ img {
   cursor: pointer;
 }
 
-/* =============== MEDIA QUERIES (TABLETS) ================= */
-
-@media screen and (max-width: 1024px) {
-  .container {
-    width: var(--container-width-md);
+@media (max-width:768px){
+  .hamburguer{
+    display: block;
   }
-
-  /* =================== NAVBAR =================== */
-
-  nav button {
-    display: inline-block;
-    background: transparent;
-    font-size: 1.8rem;
-    color: white;
-    cursor: pointer;
-  }
-
-  nav button#close-menu-btn {
-    display: none;
-  }
-
-  .nav_menu {
-    position: fixed;
-    top: 5rem;
-    right: 5%;
-    height: fit-content;
-    width: 18rem;
-    flex-direction: column;
-    gap: 0;
-    display: none;
-  }
-
-  .nav_menu li {
-    width: 100%;
-    height: 5.8rem;
-    animation: animateNavItems 400ms linear forwards;
-    transform-origin: top right;
+  .hamburguer.active .bar:nth-child(2){
     opacity: 0;
   }
-
-  .nav_menu li:nth-child(2) {
-    animation-delay: 200ms;
+  .hamburguer.active .bar:nth-child(1){
+    transform: translateY(8px) rotate(45deg);
   }
-
-  .nav_menu li:nth-child(3) {
-    animation-delay: 400ms;
+  .hamburguer.active .bar:nth-child(3){
+    transform: translateY(-8px) rotate(-45deg);
   }
-
-  .nav_menu li:nth-child(4) {
-    animation-delay: 600ms;
-  }
-
-  @keyframes animateNavItems {
-    0% {
-      transform: rotateZ(-90deg) rotateX(90deg) scale(0.1);
-    }
-    100% {
-      transform: rotateZ(0) rotateX(0) scale(1);
-      opacity: 1;
-    }
-  }
-
-  .nav_menu li a {
-    background: var(--color-primary);
-    box-shadow: -4rem 6rem 10rem rgba(0, 0, 0, 0.6);
+  .nav-menu{
+    position: fixed;
+    left: -100%;
+    top: 70px;
+    gap: 0;
+    border-radius: 0 0 20px 20px;
+    background-color: black;
+    text-align: center;
+    flex-direction: column;
     width: 100%;
-    height: 100%;
-    display: grid;
-    place-items: center;
+    transition: var(--transition);
+  }
+  .nav-item{
+    margin: 16px 0;
+  }
+  .nav-menu.active{
+    left: 0;
   }
 
-  .nav_menu li a:hover {
-    background: var(--color-bg2);
-    color: white;
+  .modal-content{
+    width: 100vh;
+    height: 500px;
+  }
+  
+  .product-info{
+    flex-grow: 0;
+  }
+  
+  .product-info img{
+    width: 300px;
   }
 
-  /* ================ POPULAR COURSES ================ */
-
-  .courses {
-    margin-top: 0;
+  .product-details{
+    align-items: flex-start;
   }
 
-  .courses_container {
-    grid-template-columns: 1fr 1fr;
+  .product-description{
+    display: block;
   }
-}
 
-/* ======================== MEDIA QUERIES (PHONES) ====================== */
+  .buy-button, .close-button{
+    margin-top: 10%;
+    margin-left: 0;
+    margin-right: 10px;
+  }
 
-@media screen and (max-width: 600px) {
-  .container {
+  .modal-price{
+    margin-top: 60px;
+  }
+
+  .container{
     width: var(--container-width-sm);
   }
 
-  /* ============== NAVBAR =============== */
-
-  .nav_menu {
-    right: 3%;
+  .course{
+    width: 240px;
   }
 
-  /* ================= POPULAR COURSES =============== */
-
-  .courses_container {
-    grid-template-columns: 1fr;
+  .course_info button{
+    width: 150px;
+    height: 50px;
+    border-radius: 7px;
   }
 }
