@@ -5,27 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
   </head>
 
   <body>
     <!-- ================== NAVBAR ==================-->
 
-    <header>
-      <nav class="navbar">
-        <a href="index.html" class="logo">Home</a>
-        <ul class="nav-menu">
-          <li class="nav-item">
-            <a href="#" onclick="toggleCart()" class="nav-link">Carrinho</a>
-          </li>
-          <li class="nav-item"><a href="#" class="nav-link">Minha Conta</a></li>
-        </ul>
-        <div class="hamburguer">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </div>
-      </nav>
-    </header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">Home</a>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="#" onclick="toggleCart()" class="nav-link">Carrinho</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link" onclick="toggleDropdown(event)">
+            Minha Conta
+            <img src="images/down-arrow.svg" class="arrow-icon" />
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="cadastro.html">Cadastrar</a></li>
+            <li><a href="login.html">Logar</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="hamburguer">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </nav>
+    
 
     <div id="cartSidebar" class="sidebar">
       <h2>Carrinho</h2>
@@ -84,7 +96,6 @@
         <!-- FIM MODAL -->
       </section>
     </section>
-
 
     <script src="main.js"></script>
   </body>

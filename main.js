@@ -214,3 +214,9 @@ function updateCart() {
     cartTotal.style.display = "none";
   }
 }
+
+function toggleDropdown(event) {
+  event.preventDefault();
+  const dropdownParent = event.target.parentNode;
+  dropdownParent.classList.toggle('open');
+}

@@ -64,7 +64,7 @@ body {
 /* NAVBAR */
 
 .navbar{
-  min-height: 4rem;
+  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -82,12 +82,14 @@ body {
 .nav-menu{
   display: flex;
   align-items: center;
-  gap: 30px;
-  margin-right: 20px;
+  gap: 20px;
+  margin-right: 40px;
 }
 
 .nav-link{
   transition: var(--transition);
+  display: flex;
+  align-items: center;
 }
 
 .nav-link:hover{
@@ -119,6 +121,34 @@ a{
   margin: 5px auto;
   background-color: white;
   transform: var(--transition);
+}
+
+/* DROPDOWN MINHA CONTA */
+
+.dropdown-menu {
+  display: none;
+  position: fixed;
+  background-color: purple;
+  top: 4rem;
+  width: 150px;
+  padding: 10px;
+}
+
+.dropdown-menu li {
+  margin-bottom: 5px;
+}
+
+.dropdown-menu a:hover{
+  color: yellow;
+}
+
+.nav-item.dropdown.open .dropdown-menu {
+  display: block;
+}
+
+.arrow-icon{
+  color: white;
+  width: 25px;
 }
 
 /* FUNÇÃO JS PARA BOTAR SOMBRA NA NAVBAR AO DESCER */
