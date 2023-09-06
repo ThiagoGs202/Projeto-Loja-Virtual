@@ -218,5 +218,71 @@ function updateCart() {
 function toggleDropdown(event) {
   event.preventDefault();
   const dropdownParent = event.target.parentNode;
-  dropdownParent.classList.toggle('open');
+  dropdownParent.classList.toggle("open");
+}
+
+// Script de modal para adicionar novos produtos
+
+function openAddProductModal() {
+  // Limpar os campos da modal
+  document.getElementById("productName").value = "";
+  document.getElementById("productDescription").value = "";
+  document.getElementById("productPrice").value = "";
+  // Exibir a modal
+  const addProductModal = document.getElementById("addProductModal");
+  addProductModal.style.display = "flex"; // Alterado para 'flex'
+  addProductModal.classList.add("show"); // Adicione a classe 'show' para abrir a modal centralizada
+}
+
+function addProduct() {
+  // Obter os valores dos campos
+  const productName = document.getElementById("productName").value;
+  const productDescription =
+    document.getElementById("productDescription").value;
+  const productPrice = document.getElementById("productPrice").value;
+  const productImageInput = document.getElementById("productImage");
+  const productImage = productImageInput.files[0]; // Obter o arquivo de imagem
+
+  // Verificar se uma imagem foi selecionada
+  if (!productImage) {
+    alert("Por favor, selecione uma imagem para o produto.");
+    return;
+  }
+
+  // Criar o elemento HTML para o novo produto
+  const newProduct = document.createElement("article");
+  newProduct.classList.add("course");
+
+  // Ler a imagem selecionada e definir como a imagem do produto
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    newProduct.innerHTML = `
+      <div class="course_image">
+        <img src="${e.target.result}" />
+      </div>
+      <div class="course_info">
+        <h4>${productName}</h4>
+        <p>${productDescription}</p>
+        <p class="course_price">R$ ${productPrice}</p>
+        <button onclick="openModal()" class="btn btn-primary">
+          SAIBA MAIS
+        </button>
+      </div>
+    `;
+
+    // Adicionar o novo produto à seção "produtos"
+    const container = document.querySelector(".courses_container");
+    container.appendChild(newProduct);
+
+    // Fechar a modal
+    closeAddProductModal();
+  };
+
+  reader.readAsDataURL(productImage); // Lê o arquivo da imagem como uma URL de dados
+}
+
+function closeAddProductModal() {
+  const addProductModal = document.getElementById("addProductModal");
+  addProductModal.style.display = "none";
+  addProductModal.classList.remove("show"); // Remova a classe 'show' para fechar a modal
 }

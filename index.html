@@ -17,6 +17,9 @@
     <nav class="navbar">
       <a href="index.html" class="logo">Home</a>
       <ul class="nav-menu">
+        <a href="#" onclick="openAddProductModal()" class="nav-link"
+          >Adicionar Produto</a
+        >
         <li class="nav-item">
           <a href="#" onclick="toggleCart()" class="nav-link">Carrinho</a>
         </li>
@@ -37,7 +40,6 @@
         <span class="bar"></span>
       </div>
     </nav>
-    
 
     <div id="cartSidebar" class="sidebar">
       <h2>Carrinho</h2>
@@ -62,6 +64,32 @@
           </div>
         </article>
 
+      <!-- Modal para adição de produtos -->
+<div id="addProductModal" class="modal add-product-modal">
+  <div class="modal-content add-product-modal-content">
+    <h2>Adicionar Produto</h2>
+    <form id="productForm">
+      <label for="productName"></label>
+      <input type="text" id="productName" required placeholder="Nome do produto:"/>
+
+      <label for="productDescription"></label>
+      <textarea id="productDescription" required placeholder="Descrição do produto:"></textarea>
+
+      <label for="productPrice"></label>
+      <input type="text" id="productPrice" required placeholder="Preço do produto:"/>
+
+      <label for="productImage" class="productImage"></label>
+      <input type="file" id="productImage" />
+
+      <div class="buttons">
+        <button type="button" class="btn btn-primary" onclick="addProduct()">Adicionar</button>
+        <button type="button" class="btn btn-primary" onclick="closeAddProductModal()">Fechar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
         <!-- MODAL -->
 
         <div id="myModal" class="modal">
@@ -69,8 +97,7 @@
             <div class="product-info">
               <div class="product-details">
                 <h2>Nome do Produto</h2>
-                <div class="product-description">
-                  <img src="images/course1.jpg" />
+                <div class="product-description">       
                   <p>Descrição do Produto</p>
                 </div>
                 <p class="modal-price">R$ 0,00</p>
